@@ -1,0 +1,14 @@
+// var manager
+@import 'var';
+$var-module: <%= pascalEntityName %>;
+$var-defaults: (
+  // var-name: default-value
+);
+
+// declare default vars for this module
+// use in module with `@include var(var-name);`
+@include --var($var-defaults);
+
+// .container {
+//   @include var(color);
+// }

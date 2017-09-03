@@ -1,0 +1,36 @@
+@import 'var';
+$var-module: App;
+$var-defaults: (
+  color: green,
+);
+
+@include --var($var-defaults);
+
+.container {
+  @include var(color);
+}
+
+.list {
+  list-style-type: none;
+}
+
+:global {
+  body {
+    // smallest reset
+    &,
+    * {
+      &,
+      &:before,
+      &:after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    // consistent spacing
+    * + * {
+      margin-top: 1rem;
+    }
+  }
+}

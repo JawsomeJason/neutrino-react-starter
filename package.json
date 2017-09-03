@@ -1,0 +1,40 @@
+{
+  "name": "react-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "neutrino start",
+    "lint": "neutrino lint",
+    "build": "neutrino build"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "latest,",
+    "eslint-plugin-import": "^2.7.0,",
+    "eslint-plugin-jsx-a11y": "^5.1.1,",
+    "eslint-plugin-react": "^7.1.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "neutrino": "^6.1.5",
+    "neutrino-middleware-postcss": "^2.0.2",
+    "neutrino-middleware-styles-loader": "^0.0.5",
+    "neutrino-preset-airbnb": "^3.0.0",
+    "neutrino-preset-cssnext": "^2.0.0-rc.1",
+    "neutrino-preset-postcss": "^1.0.0",
+    "neutrino-preset-react": "^6.1.5",
+    "neutrino-preset-web": "^6.1.5",
+    "postcss-loader": "^2.0.6"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "neutrino-middleware-sass": "^0.0.1",
+    "react": "^15.6.1",
+    "react-async-component": "^1.0.0-beta.3",
+    "react-dom": "^15.6.1",
+    "react-hot-loader": "3.0.0-beta.7",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.7.2",
+    "sass-loader": "^6.0.6"
+  }
+}

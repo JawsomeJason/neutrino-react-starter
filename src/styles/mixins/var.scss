@@ -1,0 +1,77 @@
+// by default, do not prefix custom properties
+// set this at the top of a module to namespace
+$var-module: null !default;
+// by default, we have no default vars
+// set this at the top of a module to use for defaults
+$var-defaults: () !default;
+
+// by default, progressively enhance
+$progressive: true !default;
+
+// sets css custom properties
+@mixin --var($properties, $module: $var-module) {
+  // if this was called in a selector, apply it there,
+  // otherwise, apply it at the :root (defaults)
+  $parent: &;
+
+  @if & {
+    @each $property, $value in $properties {
+      #{--name($property, $module)}: $value;
+    }
+  }
+  @else {
+    :root {
+      @include --var($properties, $module: $module);
+    }
+  }
+}
+
+@mixin var($var, $default: false, $property: $var, $module: $var-module) {
+  @if $progressive and $default {
+    #{$property}: $default;
+  }
+  // if not a string, then interpolate with var()
+  @if $var == unquote($var) {
+    $var: var($var, $default, $module);
+  }
+
+  #{$property}: $var;
+}
+
+// get CSS Custom Property name (possibly with module prefix)
+@function --name($property, $module: $var-module) {
+  @return --#{if($module, '#{$module}__', '')}#{$property};
+}
+
+// wrap native CSS var()
+// @example
+// var(foo) // => var(--foo)
+// $module: bar;
+// var(foo); // => var(--bar__foo)
+// var(--foo); // => var(--foo)
+@function var($property, $default: false, $module: $var-module) {
+
+
+  @return var-native(var-name($property), var-default($property, $default));
+}
+
+@function var-default($property, $default) {
+  @return if($default, $default, map-get($var-defaults, $property));
+}
+
+@function var-name($name, $module: $var-module) {
+  // explicit var reference if begins with `--`
+  $explicit: str_index($name, '--') == 1;
+  // interpolate if not explicit
+  @if $explicit {
+    @return $name;
+  }
+
+  @return "--#{if($module, $module + '__', '')}#{$name}";
+}
+
+@function var-native($name, $default) {
+  // add comma before $default if exists, empty string if not
+  $default: if($default, unquote(', ' + $default), '');
+  @return unquote("var(#{$name}#{$default})");
+}
